@@ -26,13 +26,13 @@ cloned graph:
 [label: 3; neighbors: 1 2 4 ]
 [label: 4; neighbors: 2 3 ]
  */
-public class GraphDriver {
+public class CloneGraphDriver {
 
 	private Graph graph = null;
 	private int vertices = 0;
 	
 	public static void main(String[] args) {
-		GraphDriver gd = new GraphDriver();
+		CloneGraphDriver gd = new CloneGraphDriver();
 		int vertices = 4;
 		gd.initGraph(vertices);
 		
