@@ -2,6 +2,12 @@ package com.manib.bits;
 
 /**
  * @author manib
+ * You are given an integer array with N elements: d[0], d[1], ... d[N - 1]. 
+ * You can perform AT MOST one move on the array: choose any two integers [L, R], and 
+ * flip all the elements between (and including) the L-th and R-th bits. L and R represent 
+ * the left-most and right-most index of the bits marking the boundaries of the segment which 
+ * you have decided to flip.
+ * What is the maximum number of '1'-bits (indicated by S) which you can obtain in the final bit-string? 
  */
 
 public class MaxSetBits {
