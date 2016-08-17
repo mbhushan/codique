@@ -20,6 +20,13 @@ public class WallAndGates {
 		};
 		
 		wag.solveWallGates(M);
+		/*
+		 * solved matrix: 
+			[3, -1, 0, 1]
+			[2, 2, 1, -1]
+			[1, -1, 2, -1]
+			[0, -1, 3, 4]
+		 */
 	}
 	
 	public void solveWallGates(int [][] M) {
