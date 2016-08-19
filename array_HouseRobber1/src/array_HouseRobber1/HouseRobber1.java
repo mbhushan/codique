@@ -23,10 +23,25 @@ public class HouseRobber1 {
 		
 		for (int i=0; i<houses.length; i++) {
 			System.out.println("rob value: " + hr.robHouse(houses[i]));
+			System.out.println("rob value, DP sol: " + hr.robHouseDP(houses[i]));
 		}
 		//rob value: 100
 		// rob value: 25
 
+	}
+	
+	public int robHouseDP(int [] houses) {
+		if (houses == null || houses.length < 1) {
+			return 0;
+		}
+		
+		int [] dp = new int[houses.length];
+		dp[0] = houses[0];
+		dp[1] = Math.max(dp[0], houses[1]);
+		for (int i=2; i<houses.length; i++) {
+			dp[i] = Math.max(dp[i-2] + houses[i], dp[i-1]);
+		}
+		return dp[houses.length-1];
 	}
 	
 	public int robHouse(int [] houses) {
