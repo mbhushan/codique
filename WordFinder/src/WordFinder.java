@@ -10,7 +10,10 @@ import java.util.Set;
 We are given a list of words that have both 'simple' and 'compound' words in them. 
 Write an algorithm that prints out a list of words without the compound words that are made up of the simple words.
 Input: chat, ever, webchat, snap, salesperson, per, person, sales, son, whatsoever, what so.
-Output should be: chat, ever, web, per, sales, son, what, so
+Output should be: 
+chat, ever, web, per, sales, son, what, so
+
+chat, ever, snap, per, sales, son, what, so, web,
 */
 public class WordFinder {
 
