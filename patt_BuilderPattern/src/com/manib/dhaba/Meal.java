@@ -15,6 +15,10 @@ public class Meal {
 		itemList.add(item);
 	}
 	
+	public List<Item> getItems() {
+		return this.itemList;
+	}
+	
 	public float getCost() {
 		float cost = 0.0f;
 		
