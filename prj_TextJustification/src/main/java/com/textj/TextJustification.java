@@ -18,7 +18,7 @@ public class TextJustification {
 	}
 	
 	
-	public String process() {
+	public String leftRightJustify() {
 		StringBuffer sb = new StringBuffer();
 		String space = " ";
 		
@@ -37,38 +37,40 @@ public class TextJustification {
 				list.add(word);
 				list.add(space);
 				indexes.add(list.size()-1);
-				width += len;
-				spaceLeft = spaceLeft - width;
-			} else if ((width + len + 1) > lineWidth) {
+				width += (len + 1);
+				spaceLeft = lineWidth - width;
+			} else if ((width + len + 1) >= lineWidth) {
 				list.remove(list.size()-1);
 				indexes.remove(indexes.size()-1);
 				spaceLeft += 1;
 				//distribute the space evenly.
 				int count = 0;
 				int size = indexes.size();
-				System.out.println("size: " + size);
+				//System.out.println("size: " + size);
 				while (count < spaceLeft) {
 					int r = rand.nextInt(size);
-					list.set(r, list.get(r) + space);
+					int update = indexes.get(r);
+					list.set(update, list.get(update) + space);
 					++count;
 				}
 				sb.append(listToString(list) + NEW_LINE);
 				list = new ArrayList<String>();
 				indexes = new ArrayList<Integer>();
-				width = len;
+				width = len+1;
 				spaceLeft = lineWidth - width;
 				list.add(word);
 				list.add(space);
 				indexes.add(list.size()-1);
 				
 				
-			} else {
-				sb.append(listToString(list) + NEW_LINE);
-				list = new ArrayList<String>();
-				indexes = new ArrayList<Integer>();
-				width = 0;
-				spaceLeft = lineWidth;
-			}
+			} 
+//			else {
+//				sb.append(listToString(list) + NEW_LINE);
+//				list = new ArrayList<String>();
+//				indexes = new ArrayList<Integer>();
+//				width = 0;
+//				spaceLeft = lineWidth;
+//			}
 			//add the overflow word.
 			
 		}
