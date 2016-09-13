@@ -15,13 +15,27 @@ public class Database<T> {
 	
 	
 	public void set(T name, T value) {
+		T oldValue = null;
+		if (this.tableMap.containsKey(name)) {
+			oldValue = this.tableMap.get(name);
+		}
+		
+		if ((oldValue != null) && oldValue.equals(value)) {
+			return; //no update required, same key-value pair.
+		}
+		
 		this.tableMap.put(name, value);
+		
 		int count = 0;
 		if (this.valueCountMap.containsKey(value)) {
 			count = this.valueCountMap.get(value);
 		}
 		++count;
 		this.valueCountMap.put(value, count);
+		
+		if ((oldValue != null) && (!oldValue.equals(value))) {
+			decrementValueCount(oldValue);
+		}
 	}
 	
 	public T get(T name) {
@@ -55,5 +69,13 @@ public class Database<T> {
 		} else {
 			this.valueCountMap.put(value, count);
 		}
+	}
+	
+	public int numequalto(T value) {
+		int count = 0;
+		if (this.valueCountMap.containsKey(value)) {
+			count = this.valueCountMap.get(value);
+		}
+		return count;
 	}
 }
