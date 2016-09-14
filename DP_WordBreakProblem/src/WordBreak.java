@@ -21,11 +21,14 @@ public class WordBreak {
 
 		String [] text = {"thisissent", "weloveprogramming", "insideawesomeprogramming"};
 		
+		//wb.wordBreak("weloveprogramming");
+		
 		for (int i=0; i<text.length; i++) {
 		//for (int i=0; i<1; i++) {
 			System.out.println(wb.wordBreak(text[i]));
 			System.out.println("DP: " + wb.wordBreakDP(text[i]));
 		}
+		
 		
 	}
 	
