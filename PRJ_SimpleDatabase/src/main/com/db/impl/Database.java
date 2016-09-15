@@ -13,6 +13,11 @@ public class Database<T> {
 		this.valueCountMap = new HashMap<T, Integer>();
 	}
 	
+	public Database(Database<T> db) {
+		this.tableMap = new HashMap<T, T>(db.tableMap);
+		this.valueCountMap = new HashMap<T, Integer>(db.valueCountMap);
+	}
+	
 	
 	public void set(T name, T value) {
 		T oldValue = null;
