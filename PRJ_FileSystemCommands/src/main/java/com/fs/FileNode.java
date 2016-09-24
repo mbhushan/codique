@@ -18,6 +18,7 @@ public class FileNode {
 		this.content = null;
 		this.parent = null;
 		this.files = new HashMap<String, FileNode>();
+		this.isDirectory = false;
 	}
 	
 	public FileNode getParent() {
@@ -26,6 +27,10 @@ public class FileNode {
 	
 	public String getName() {
 		return this.name;
+	}
+	
+	public void setContent(StringBuffer sb) {
+		this.content = sb;
 	}
 	
 	public void setParent(FileNode node) {
