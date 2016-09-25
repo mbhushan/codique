@@ -17,8 +17,36 @@ public class FileSystem {
 	
 	public FileSystem() {
 		this.root = new FileNode("/");
-		this.root.isDirectory(true);
+		this.root.setDirectory(true);
 		this.pwd = this.root;
+	}
+	
+	public void rm(String arg) {
+		if (this.pwd.getFiles().containsKey(arg)) {
+			if (!this.pwd.getFiles().get(arg).isDirectory()) {
+				this.pwd.getFiles().remove(arg);
+			} else {
+				System.out.println(arg + " is directory, use rmdir cmd.");
+			}
+		} else {
+			System.out.println("no such file!");
+		}
+	}
+	
+	public void rmdir(String arg) {
+		if (this.pwd.getFiles().containsKey(arg)) {
+			if (this.pwd.getFiles().get(arg).isDirectory()) {
+				if (this.pwd.getFiles().isEmpty()) {
+					this.pwd.getFiles().remove(arg);
+				} else {
+					System.out.println("directory is not empty!");
+				}
+			} else {
+				System.out.println(arg + " is file, use rm cmd.");
+			}
+		} else {
+			System.out.println("no such directory!");
+		}
 	}
 	
 	
@@ -35,7 +63,7 @@ public class FileSystem {
 	
 	public void mkdir(String dirName) {
 		FileNode dir = new FileNode(dirName);
-		dir.isDirectory(true);
+		dir.setDirectory(true);
 		
 		dir.setParent(this.pwd);
 		this.pwd.addFile(dirName, dir);
