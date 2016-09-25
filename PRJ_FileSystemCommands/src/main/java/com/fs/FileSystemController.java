@@ -10,9 +10,33 @@ public class FileSystemController {
 	private static final String CREATE = "create";
 	private static final String CD = "cd";
 	private static final String CAT = "cat";
+	private static final String RM = "rm";
+	private static final String RMDIR = "rmdir";
+	private static final String MV = "mv";
 	
 	public FileSystemController() {
 		this.fs = new FileSystem();
+	}
+	
+	public void mvCmd(String [] args) {
+		if (args.length < 3) {
+			return;
+		}
+		this.fs.mv(args[1], args[2]);
+	}
+
+	public void rmdirCmd(String[] args) {
+		if (args.length < 2) {
+			return;
+		}
+		this.fs.rmdir(args[1]);
+	}
+
+	public void rmCmd(String[] args) {
+		if (args.length < 2) {
+			return;
+		}
+		this.fs.rm(args[1]);
 	}
 	
 	public void cdCmd(String [] args) {
@@ -30,7 +54,7 @@ public class FileSystemController {
 		if (args.length < 2) {
 			return;
 		}
-		this.fs.create(args[1].trim().toLowerCase());
+		this.fs.create(args[1]);
 	}
 	
 	public void mkdirCmd(String [] args) {
@@ -42,7 +66,7 @@ public class FileSystemController {
 	
 	private String [] parse(String input) {
 		input = input.replaceAll(" +", " ");
-		return input.split(" ");
+		return input.toLowerCase().split(" ");
 	}
 	
 	public void pwdCmd() {
@@ -79,6 +103,18 @@ public class FileSystemController {
 			
 		case CD:
 			cdCmd(args);
+			break;
+			
+		case RM:
+			rmCmd(args);
+			break;
+			
+		case RMDIR:
+			rmdirCmd(args);
+			break;
+			
+		case MV:
+			mvCmd(args);
 			break;
 			
 			default:
