@@ -37,7 +37,11 @@ public class FileNode {
 		this.parent = node;
 	}
 	
-	public void isDirectory(boolean flag) {
+	public boolean isDirectory() {
+		return this.isDirectory;
+	}
+	
+	public void setDirectory(boolean flag) {
 		this.isDirectory = flag;
 	}
 	
