@@ -1,11 +1,19 @@
 package main.java.com.fs;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Stack;
 
 public class FileSystem {
 	
 	private FileNode root;
 	private FileNode pwd;
+	private static final String EOF = "EOF";
 	
 	public FileSystem() {
 		this.root = new FileNode("/");
@@ -13,6 +21,17 @@ public class FileSystem {
 		this.pwd = this.root;
 	}
 	
+	
+	public void cd(String arg) {
+		if (this.pwd.getFiles().containsKey(arg)) {
+			this.pwd = this.pwd.getFiles().get(arg);
+		} else if (arg.equals("..")) {
+			this.pwd = this.pwd.getParent();
+		} else if (arg.equals("/")) {
+			this.pwd = this.root;
+		} 
+		return;
+	}
 	
 	public void mkdir(String dirName) {
 		FileNode dir = new FileNode(dirName);
@@ -22,7 +41,57 @@ public class FileSystem {
 		this.pwd.addFile(dirName, dir);
 	}
 	
+	public void create(String fileName) {
+		FileNode file = new FileNode(fileName);
+		
+		file.setParent(this.pwd);
+		this.pwd.addFile(fileName, file);
+		
+		writeFileContent(file);
+	}
+	
+	private void writeFileContent(FileNode file) {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String line = null;
+		StringBuffer sb = new StringBuffer();
+		try {
+			while (true) {
+				line = br.readLine();
+				if (line.equalsIgnoreCase(EOF)) {
+					break;
+				}
+				sb.append(line + "\n");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		file.setContent(sb);
+	}
+	
 	public void pwd() {
+		StringBuffer path = new StringBuffer();
+		if (this.pwd.equals(this.root)) {
+			path.append("/");
+		} else {
+			pwd(this.pwd, path);
+			path.deleteCharAt(path.length()-1);
+		}
+		System.out.println(path);
+	}
+	
+	private void pwd(FileNode node, StringBuffer path) {
+		if (!node.equals(node.getParent())) {
+			pwd(node.getParent(), path);
+		}
+		if (node.getName().equals("/")) {
+			path.append(node.getName());
+		} else {
+			path.append(node.getName() + "/");
+		}
+		//System.out.print(node.getName());
+	}
+	
+	public void pwd1() {
 		Stack<String> stack = new Stack<String>();
 		FileNode node = this.pwd;
 		stack.push(node.getName());
@@ -45,10 +114,22 @@ public class FileSystem {
 		if (this.pwd == null) {
 			return;
 		}
-		StringBuffer sb = new StringBuffer();
+		List<FileNode> flist = new ArrayList<FileNode>();
 		for (String name: this.pwd.getFiles().keySet()) {
-			sb.append(this.pwd.getFiles().get(name) + "\n");
+			flist.add(this.pwd.getFiles().get(name));
 		}
-		System.out.println(sb.toString());
+		Collections.sort(flist, new FileNodeComparator());
+		for (FileNode node: flist) {
+			System.out.println(node);
+		}
 	}
+}
+
+class FileNodeComparator implements Comparator<FileNode> {
+
+	@Override
+	public int compare(FileNode o1, FileNode o2) {
+		return o1.getName().compareToIgnoreCase(o2.getName());
+	}
+	
 }
