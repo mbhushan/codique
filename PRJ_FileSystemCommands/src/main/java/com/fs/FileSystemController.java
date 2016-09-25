@@ -7,13 +7,30 @@ public class FileSystemController {
 	private static final String LS = "ls";
 	private static final String MKDIR = "mkdir";
 	private static final String PWD = "pwd";
+	private static final String CREATE = "create";
+	private static final String CD = "cd";
+	private static final String CAT = "cat";
 	
 	public FileSystemController() {
 		this.fs = new FileSystem();
 	}
 	
+	public void cdCmd(String [] args) {
+		if (args.length < 2) {
+			return;
+		}
+		this.fs.cd(args[1]);
+	}
+	
 	public void lsCmd() {
 		this.fs.ls();
+	}
+	
+	public void createCmd(String [] args) {
+		if (args.length < 2) {
+			return;
+		}
+		this.fs.create(args[1].trim().toLowerCase());
 	}
 	
 	public void mkdirCmd(String [] args) {
@@ -54,6 +71,15 @@ public class FileSystemController {
 			
 		case MKDIR:
 			mkdirCmd(args);
+			break;
+			
+		case CREATE:
+			createCmd(args);
+			break;
+			
+		case CD:
+			cdCmd(args);
+			break;
 			
 			default:
 				break;
