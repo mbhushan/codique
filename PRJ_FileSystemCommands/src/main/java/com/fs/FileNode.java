@@ -16,7 +16,7 @@ public class FileNode {
 	public FileNode(String name) {
 		this.name = name;
 		this.content = null;
-		this.parent = null;
+		this.parent = this;
 		this.files = new HashMap<String, FileNode>();
 		this.isDirectory = false;
 	}
@@ -54,9 +54,9 @@ public class FileNode {
 		StringBuffer sb = new StringBuffer();
 		
 		sb.append("[");
-		sb.append("file: " + this.name + ", dir: " + this.isDirectory);
+		sb.append("file: " + this.name + "; dir: " + this.isDirectory);
 		if (this.files != null && this.files.size() > 0) {
-			sb.append(", ");
+			sb.append("; files: ");
 			for (String name: this.files.keySet()) {
 				sb.append(name + ", ");
 			}
