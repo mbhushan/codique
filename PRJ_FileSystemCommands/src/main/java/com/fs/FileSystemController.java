@@ -18,6 +18,10 @@ public class FileSystemController {
 		this.fs = new FileSystem();
 	}
 	
+	public void catCmd(String [] args) {
+		this.fs.cat(args);
+	}
+	
 	public void mvCmd(String [] args) {
 		if (args.length < 3) {
 			return;
@@ -115,6 +119,10 @@ public class FileSystemController {
 			
 		case MV:
 			mvCmd(args);
+			break;
+			
+		case CAT:
+			catCmd(args);
 			break;
 			
 			default:
