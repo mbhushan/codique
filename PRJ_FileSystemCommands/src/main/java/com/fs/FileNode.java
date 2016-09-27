@@ -15,10 +15,18 @@ public class FileNode {
 	
 	public FileNode(String name) {
 		this.name = name;
-		this.content = null;
+		this.content = new StringBuffer();
 		this.parent = this;
 		this.files = new HashMap<String, FileNode>();
 		this.isDirectory = false;
+	}
+	
+	public String getContent() {
+		return this.content.toString();
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public FileNode getParent() {
