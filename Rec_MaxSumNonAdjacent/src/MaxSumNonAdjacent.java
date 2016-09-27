@@ -11,7 +11,24 @@ public class MaxSumNonAdjacent {
 		for (int i=0; i<M.length; i++) {
 			System.out.println(Arrays.toString(M[i]));
 			System.out.println("max sum: " + ms.maxSumNonAdj(M[i]));
+			System.out.println("max sum iter: " + ms.maxSumIter(M[i]));
+			System.out.println();
 		}
+	}
+	
+	public int maxSumIter(int [] A) {
+		int len = A.length;
+		
+		int incl = A[0];
+		int excl = 0;
+		for (int i=1; i<len; i++) {
+			int tmp = incl;
+			incl = Math.max(incl, excl+A[i]);
+			excl = tmp;
+					
+		}
+		
+		return Math.max(incl, excl);
 	}
 
 	public Integer  maxSumNonAdj(int[] A) {
