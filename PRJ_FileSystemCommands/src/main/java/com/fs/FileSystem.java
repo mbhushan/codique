@@ -21,6 +21,45 @@ public class FileSystem {
 		this.pwd = this.root;
 	}
 	
+	public void cat(String [] args) {
+		StringBuffer buff = new StringBuffer();
+		
+		for (int i=0; i<args.length; i++) {
+			String name = args[i];
+			if (this.pwd.getFiles().containsKey(name)) {
+				FileNode file = this.pwd.getFiles().get(name);
+				if (!file.isDirectory()) {
+					buff.append(file.getContent() + "\n");
+				}
+			}
+		}
+		System.out.println(buff.toString());
+	}
+	
+	public void mv(String first, String second) {
+		if (this.pwd.getFiles().containsKey(second) && !this.pwd.getFiles().get(second).isDirectory()) {
+			System.out.println("already text file");
+			return; //there is already a text file with second arg, do nothing and return.
+		}
+
+		//moves the first argument into the directory; 
+		FileNode secondFile = this.pwd.getFiles().get(second);
+		FileNode firstFile = this.pwd.getFiles().get(first);
+		
+		if (secondFile != null && secondFile.isDirectory()) {
+			if (secondFile.getFiles().containsKey(first)) {
+				return; //the directory must not already contain a file whose name is the first argument.
+			}
+			firstFile.setParent(secondFile);
+			secondFile.getFiles().put(first, firstFile);
+			this.pwd.getFiles().remove(first);
+		} else {
+			firstFile.setName(second);
+			this.pwd.getFiles().put(second, firstFile);
+			this.pwd.getFiles().remove(first);
+		}
+	}
+	
 	public void rm(String arg) {
 		if (this.pwd.getFiles().containsKey(arg)) {
 			if (!this.pwd.getFiles().get(arg).isDirectory()) {
@@ -36,7 +75,7 @@ public class FileSystem {
 	public void rmdir(String arg) {
 		if (this.pwd.getFiles().containsKey(arg)) {
 			if (this.pwd.getFiles().get(arg).isDirectory()) {
-				if (this.pwd.getFiles().isEmpty()) {
+				if (this.pwd.getFiles().get(arg).getFiles().isEmpty()) {
 					this.pwd.getFiles().remove(arg);
 				} else {
 					System.out.println("directory is not empty!");
