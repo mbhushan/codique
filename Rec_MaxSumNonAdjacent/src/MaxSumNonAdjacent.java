@@ -6,7 +6,13 @@ public class MaxSumNonAdjacent {
 		
 		MaxSumNonAdjacent ms = new MaxSumNonAdjacent();
 		
-		int[][] M = { { 4, 1, 1, 4, 2, 1 }, { 2, 5, 3, 1, 7 } };
+		int[][] M = { { 4, 1, 1, 4, 2, 1 }, 
+				{ 2, 5, 3, 1, 7 },
+				{ 2, 10, 13, 4, 2, 15, 10 },
+				{5,  5, 10, 40, 50, 35},
+				{5, 5, 10, 100, 10, 5},
+				{3, 2, 7, 10}
+		};
 		
 		for (int i=0; i<M.length; i++) {
 			System.out.println(Arrays.toString(M[i]));
