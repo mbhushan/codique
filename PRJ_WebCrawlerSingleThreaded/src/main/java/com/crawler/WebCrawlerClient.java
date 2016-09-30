@@ -1,6 +1,11 @@
 package main.java.com.crawler;
 
 public class WebCrawlerClient {
+	
+	private WebCrawler wcrawler;
+	
+	public WebCrawlerClient() {
+	}
 
 	public static void main(String[] args) {
 		WebCrawlerClient wc = new WebCrawlerClient();

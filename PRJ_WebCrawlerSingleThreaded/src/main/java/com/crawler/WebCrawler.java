@@ -25,8 +25,8 @@ public class WebCrawler {
 		}
 	}
 	
-	public void crawl() {
-		
+	public void crawlSystem() {
+		//starts crawling.
 	}
 	
 	public String getMD5(String input) {
